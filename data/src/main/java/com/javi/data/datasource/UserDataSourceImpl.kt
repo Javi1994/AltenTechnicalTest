@@ -1,6 +1,6 @@
-package com.javi.data.datasource.network
+package com.javi.data.datasource
 
-import com.javi.data.datasource.UserDataSource
+import com.javi.data.datasource.network.UserApi
 import com.javi.data.dto.UserDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

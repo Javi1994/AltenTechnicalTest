@@ -1,8 +1,6 @@
 package com.javi.data.di
 
-import com.javi.data.datasource.UserDataSource
 import com.javi.data.datasource.network.UserApi
-import com.javi.data.datasource.network.UserDataSourceImpl
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
