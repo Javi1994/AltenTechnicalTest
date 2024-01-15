@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.javi.presentation.contact_list.ContactListScreen
+import com.javi.presentation.navigation.Navigation
 import com.javi.presentation.ui.theme.AltenTechnicalTestTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ContactListScreen()
+                    Navigation()
                 }
             }
         }

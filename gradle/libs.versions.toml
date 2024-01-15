@@ -33,6 +33,7 @@ converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref
 coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
 compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
@@ -48,6 +49,7 @@ koin = [
 
 compose = [
     "androidx-activity-compose",
+    "androidx-navigation-compose",
     "compose-bom",
     "compose-ui",
     "compose-ui-graphics",
