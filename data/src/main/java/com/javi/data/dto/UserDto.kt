@@ -1,4 +1,5 @@
 package com.javi.data.dto
 
-class UserDto {
-}
+data class UserDto(
+    val name: String = "Default UserDto Name"
+)

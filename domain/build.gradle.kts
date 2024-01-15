@@ -34,5 +34,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.coroutines)
+    implementation(libs.bundles.koin)
+
     implementation(project(":data"))
 }

@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flow
 class UserRepositoryImpl(
     private val userDataSource: UserDataSource
 ) : UserRepository {
-    override fun getUser(): Flow<UserDto> {
+    override suspend fun getUser(): Flow<UserDto> {
         return userDataSource.getUser()
     }
 }
