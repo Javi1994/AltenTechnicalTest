@@ -15,6 +15,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import com.javi.domain.model.User
+import com.javi.presentation.components.CustomLoaderItem
+import com.javi.presentation.components.EmptyDataItem
 import com.javi.presentation.contact_list.viewmodel.ContactListUiState
 import com.javi.presentation.contact_list.viewmodel.ContactListViewModel
 import com.javi.presentation.navigation.Screen
@@ -38,9 +41,24 @@ private fun ContactListLayout(
     state: ContactListUiState,
     onDetailClick: () -> Unit
 ) {
+    if (state.isLoading) {
+        CustomLoaderItem()
+    } else if (state.hasError) {
+
+    } else {
+        if (state.hasUsers) {
+            ContactListData(state.userList, onDetailClick)
+        } else {
+            EmptyDataItem(message = "No users data")
+        }
+    }
+}
+
+@Composable
+private fun ContactListData(userList: List<User>, onDetailClick: () -> Unit) {
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn {
-            items(state.userList) {
+            items(userList) {
                 Text(
                     text = it.name,
                     modifier = Modifier
