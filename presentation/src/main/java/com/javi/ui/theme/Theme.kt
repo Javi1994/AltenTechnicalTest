@@ -1,4 +1,4 @@
-package com.javi.altentechnicaltest.ui.theme
+package com.javi.ui.theme
 
 import android.app.Activity
 import android.os.Build
