@@ -34,5 +34,9 @@ android {
 }
 
 dependencies {
+    implementation(libs.coroutines)
+    implementation(libs.bundles.koin)
 
+    implementation(libs.converter.gson)
+    implementation(libs.retrofit)
 }
