@@ -5,6 +5,6 @@ import com.javi.domain.model.User
 
 fun UserDto.toUser(): User {
     return User(
-        name = this.name
+        name = this.name.first
     )
 }

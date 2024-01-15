@@ -5,7 +5,7 @@ import com.javi.data.datasource.UserDataSourceImpl
 import org.koin.dsl.module
 
 val dataSourceModule = module {
-    includes(mockModule)
+    includes(networkModule)
     includes(dispatcherModule)
 
     single<UserDataSource> {

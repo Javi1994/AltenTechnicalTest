@@ -6,15 +6,13 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.javi.common.Resource
-import com.javi.domain.use_case.GetUserUseCase
+import com.javi.domain.use_case.GetUsersUseCase
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class ContactListViewModel constructor(
-    private val getUserUseCase: GetUserUseCase
+    private val getUsersUseCase: GetUsersUseCase
 ) : ViewModel() {
 
     private val navigationChannel = Channel<ContactListNavigationEvent>()
@@ -28,19 +26,21 @@ class ContactListViewModel constructor(
 
     private fun getUserList() {
         viewModelScope.launch {
-            getUserUseCase().collect { result ->
+            getUsersUseCase().collect { result ->
                 when (result) {
                     is Resource.Success -> {
-                        result.data?.let { user ->
+                        result.data?.let { userList ->
                             state = state.copy(
-                                userList = listOf(user, user, user),
+                                userList = userList,
                                 isLoading = false
                             )
                         }
                     }
+
                     is Resource.Loading -> {
                         state = state.copy(isLoading = true)
                     }
+
                     is Resource.Error -> {
                         state = state.copy(error = result.error)
                     }

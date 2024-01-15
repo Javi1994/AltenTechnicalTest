@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.javi.domain.model.User
+import com.javi.presentation.components.ContactItem
 import com.javi.presentation.components.CustomLoaderItem
 import com.javi.presentation.components.EmptyDataItem
 import com.javi.presentation.components.ErrorDataItem
@@ -60,13 +61,7 @@ private fun ContactListData(userList: List<User>, onDetailClick: () -> Unit) {
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn {
             items(userList) {
-                Text(
-                    text = it.name,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {
-                            onDetailClick()
-                        })
+                Text(text = it.name)
             }
         }
     }

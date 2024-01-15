@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.javi.presentation.contact_list.ContactListScreen
 import com.javi.presentation.navigation.Navigation
 import com.javi.presentation.ui.theme.AltenTechnicalTestTheme
+import org.koin.compose.KoinContext
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +25,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Navigation()
+                    KoinContext {
+                        Navigation()
+                    }
                 }
             }
         }
