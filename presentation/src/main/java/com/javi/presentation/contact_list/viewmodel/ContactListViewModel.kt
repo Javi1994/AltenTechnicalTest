@@ -20,25 +20,44 @@ class ContactListViewModel constructor(
 
     var state by mutableStateOf(ContactListUiState())
 
-    init {
-        getUserList()
+    fun onEvent(event: ContactListUiEvent) {
+        when (event) {
+            ContactListUiEvent.OnLoadFirstUsers -> {
+                getUserList(20, true)
+            }
+
+            ContactListUiEvent.OnLoadMoreUsers -> {
+                getUserList(20)
+            }
+
+            ContactListUiEvent.OnUserClick -> {
+
+            }
+        }
     }
 
-    private fun getUserList() {
+    private fun getUserList(count: Int, resetUsers: Boolean = false) {
         viewModelScope.launch {
-            getUsersUseCase(20).collect { result ->
+            getUsersUseCase(count).collect { result ->
                 when (result) {
                     is Resource.Success -> {
                         result.data?.let { userList ->
-                            state = state.copy(
-                                userList = userList,
-                                isLoading = false
-                            )
+                            state = if (resetUsers) {
+                                state.copy(
+                                    userList = userList,
+                                    isLoading = false
+                                )
+                            } else {
+                                state.copy(
+                                    userList = state.userList + userList,
+                                    isLoading = false
+                                )
+                            }
                         }
                     }
 
                     is Resource.Loading -> {
-                        state = state.copy(isLoading = true)
+                        state = state.copy(isLoading = result.isLoading && resetUsers)
                     }
 
                     is Resource.Error -> {

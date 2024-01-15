@@ -16,6 +16,8 @@ data class ContactListUiState(
 
 sealed class ContactListUiEvent {
     data object OnUserClick : ContactListUiEvent()
+    data object OnLoadFirstUsers: ContactListUiEvent()
+    data object OnLoadMoreUsers: ContactListUiEvent()
 }
 
 sealed class ContactListNavigationEvent {
