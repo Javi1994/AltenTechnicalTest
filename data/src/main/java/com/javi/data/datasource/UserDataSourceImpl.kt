@@ -10,7 +10,7 @@ class UserDataSourceImpl(
 ) : UserDataSource {
     override suspend fun getUser(): Flow<UserDto> {
         return flow {
-            userApi.getUser()
+            emit(userApi.getUser())
         }
     }
 }
