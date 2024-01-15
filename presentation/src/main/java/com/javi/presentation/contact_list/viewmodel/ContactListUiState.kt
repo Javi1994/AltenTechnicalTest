@@ -6,7 +6,7 @@ import com.javi.domain.model.User
 data class ContactListUiState(
     val userList: List<User> = listOf(),
     val isLoading: Boolean = false,
-    val hasError: Boolean = false
+    val error: Exception? = null
 )
 
 sealed class ContactListUiEvent {

@@ -49,4 +49,5 @@ dependencies {
     implementation(libs.material3)
 
     implementation(project(":domain"))
+    implementation(project(":common"))
 }

@@ -38,4 +38,5 @@ dependencies {
     implementation(libs.bundles.koin)
 
     implementation(project(":data"))
+    implementation(project(":common"))
 }

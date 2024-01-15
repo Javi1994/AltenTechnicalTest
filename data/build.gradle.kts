@@ -39,4 +39,6 @@ dependencies {
 
     implementation(libs.converter.gson)
     implementation(libs.retrofit)
+
+    implementation(project(":common"))
 }

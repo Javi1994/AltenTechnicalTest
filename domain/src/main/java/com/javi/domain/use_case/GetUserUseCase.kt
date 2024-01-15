@@ -1,5 +1,6 @@
 package com.javi.domain.use_case
 
+import com.javi.common.Resource
 import com.javi.data.repository.UserRepository
 import com.javi.domain.mapping.toUser
 import com.javi.domain.model.User
@@ -12,9 +13,21 @@ class GetUserUseCase constructor(
     private val userRepository: UserRepository,
     private val defaultDispatcher: CoroutineDispatcher
 ) {
-    suspend operator fun invoke(): Flow<User> = withContext(defaultDispatcher) {
+    suspend operator fun invoke(): Flow<Resource<User>> = withContext(defaultDispatcher) {
         return@withContext userRepository.getUser().map {
-            it.toUser()
+            when (it) {
+                is Resource.Success -> {
+                    Resource.Success(data = it.data?.toUser())
+                }
+
+                is Resource.Loading -> {
+                    Resource.Loading(isLoading = it.isLoading)
+                }
+
+                is Resource.Error -> {
+                    Resource.Error(error = it.error)
+                }
+            }
         }
     }
 }
