@@ -45,5 +45,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.bundles.koin)
+
     implementation(project(":presentation"))
 }
