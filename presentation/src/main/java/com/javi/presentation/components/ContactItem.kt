@@ -12,9 +12,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.BottomEnd
 import androidx.compose.ui.Alignment.Companion.CenterEnd
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
@@ -34,10 +36,13 @@ fun ContactItem(user: User, onUserClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(52.dp)
             .clickable { onUserClick() }
+            .padding(0.dp, 0.dp, 0.dp, 16.dp)
     ) {
-        Row {
+        Row(
+            modifier = Modifier
+                .height(52.dp)
+        ) {
             AsyncImage(
                 model = user.image,
                 contentDescription = "User Image",
@@ -46,7 +51,7 @@ fun ContactItem(user: User, onUserClick: () -> Unit) {
                     .clip(CircleShape)
             )
             Spacer(modifier = Modifier.size(16.dp))
-            
+
             Column(modifier = Modifier.align(CenterVertically)) {
                 Text(text = user.name, fontSize = 16.sp, color = Color.Black, lineHeight = 21.sp)
                 Spacer(modifier = Modifier.size(4.dp))
@@ -70,7 +75,12 @@ fun ContactItem(user: User, onUserClick: () -> Unit) {
 @Preview
 @Composable
 private fun ContactItemPreview() {
-    ContactItem(User()) {
+    ContactItem(
+        User(
+            name = "Javi",
+            email = "Email"
+        )
+    ) {
 
     }
 }
