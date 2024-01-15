@@ -16,6 +16,7 @@ class UserDataSourceImpl(
             emit(Resource.Loading(true))
             //TODO: Remove after testing
             delay(5_000)
+            emit(Resource.Error(NullPointerException("Error")))
             try {
                 val user = userApi.getUser()
                 emit(Resource.Success(user))

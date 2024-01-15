@@ -18,6 +18,7 @@ import androidx.navigation.NavController
 import com.javi.domain.model.User
 import com.javi.presentation.components.CustomLoaderItem
 import com.javi.presentation.components.EmptyDataItem
+import com.javi.presentation.components.ErrorDataItem
 import com.javi.presentation.contact_list.viewmodel.ContactListUiState
 import com.javi.presentation.contact_list.viewmodel.ContactListViewModel
 import com.javi.presentation.navigation.Screen
@@ -44,7 +45,7 @@ private fun ContactListLayout(
     if (state.isLoading) {
         CustomLoaderItem()
     } else if (state.hasError) {
-
+        ErrorDataItem(message = "There was an unexpected error")
     } else {
         if (state.hasUsers) {
             ContactListData(state.userList, onDetailClick)
