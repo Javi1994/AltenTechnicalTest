@@ -1,7 +1,7 @@
 package com.javi.domain.model
 
 data class User(
-    val name: String = "Default User Name",
-    val email: String = "email@gmail.com",
+    val name: String = "",
+    val email: String = "",
     val image: String = ""
 )

@@ -26,7 +26,7 @@ class ContactListViewModel constructor(
 
     private fun getUserList() {
         viewModelScope.launch {
-            getUsersUseCase().collect { result ->
+            getUsersUseCase(20).collect { result ->
                 when (result) {
                     is Resource.Success -> {
                         result.data?.let { userList ->
