@@ -15,4 +15,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "AltenTechnicalTest"
 include(":app")
- 
+include(":common")
+include(":data")
+include(":presentation")
+include(":domain")
