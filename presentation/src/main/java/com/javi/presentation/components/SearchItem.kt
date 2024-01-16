@@ -19,7 +19,6 @@ fun SearchItem(
     onValueChange: (String) -> Unit
 ) {
     var text by remember { mutableStateOf("") }
-
     OutlinedTextField(
         value = text,
         label = {

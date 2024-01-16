@@ -20,6 +20,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
@@ -49,6 +50,7 @@ import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.javi.domain.model.User
+import com.javi.presentation.ObserveAsEvents
 import com.javi.presentation.R
 import com.javi.presentation.components.ContactItem
 import com.javi.presentation.components.CustomLoaderItem
@@ -56,6 +58,7 @@ import com.javi.presentation.components.EmptyDataItem
 import com.javi.presentation.components.ErrorDataItem
 import com.javi.presentation.components.SearchItem
 import com.javi.presentation.components.StatusBarColorComponent
+import com.javi.presentation.contact_list.viewmodel.ContactListNavigationEvent
 import com.javi.presentation.contact_list.viewmodel.ContactListUiEvent
 import com.javi.presentation.contact_list.viewmodel.ContactListUiState
 import com.javi.presentation.contact_list.viewmodel.ContactListViewModel
@@ -69,6 +72,13 @@ fun ContactListScreen(
     viewModel: ContactListViewModel = koinViewModel()
 ) {
     StatusBarColorComponent(true)
+    ObserveAsEvents(viewModel.navigationEventsChannelFlow) { event ->
+        when (event) {
+            is ContactListNavigationEvent.NavigateToUserDetail -> {
+                navController.navigate("${Screen.ContactDetailScreen.route}/${event.userId}")
+            }
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -85,7 +95,7 @@ fun ContactListScreen(
         ContactListLayout(
             state = viewModel.state,
             onUserClick = {
-                navController.navigate("${Screen.ContactDetailScreen.route}/$it")
+                viewModel.onEvent(ContactListUiEvent.OnUserClick(it))
             },
             onLastItemReached = {
                 viewModel.onEvent(ContactListUiEvent.OnLoadMoreUsers)
@@ -93,8 +103,7 @@ fun ContactListScreen(
             onSearchUser = {
                 viewModel.onEvent(ContactListUiEvent.OnSearchUser(it))
             },
-            modifier = Modifier
-                .padding(paddingValues)
+            modifier = Modifier.padding(paddingValues)
         )
     }
 }
@@ -133,7 +142,6 @@ private fun ContactListData(
     onUserClick: (String) -> Unit,
     onSearchUser: (String) -> Unit,
 ) {
-
     val userList = if (state.isSearching) state.filteredUserList else state.userList
     Box(
         modifier = modifier
@@ -162,16 +170,27 @@ private fun ContactListData(
                         .align(Alignment.BottomEnd)
                 )
             }
-            //When we reach the end of the lazycolumn que add a launch effect
-            // that request to load more items
-            item {
-                LaunchedEffect(true) {
-                    if (!state.isSearching) {
-                        //onLastItemReached()
+
+            if (!state.isSearching) {
+                item {
+                    //When we reach the end of the lazycolumn que add a launch effect
+                    // that request to load more items
+                    LaunchedEffect(true) {
+                        onLastItemReached()
+                    }
+
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                    ) {
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                        )
                     }
                 }
             }
-            //TODO: Implemented in screen loader when loading more items
         }
     }
 }
