@@ -27,11 +27,11 @@ class ContactListViewModel constructor(
     fun onEvent(event: ContactListUiEvent) {
         when (event) {
             ContactListUiEvent.OnLoadFirstUsers -> {
-                getUserList(15, true)
+                getUserList(1, true)
             }
 
             ContactListUiEvent.OnLoadMoreUsers -> {
-                getUserList(10)
+                getUserList(1)
             }
 
             ContactListUiEvent.OnUserClick -> {

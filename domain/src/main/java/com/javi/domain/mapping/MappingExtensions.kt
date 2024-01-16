@@ -7,6 +7,7 @@ fun UserDto.toUser(): User {
     return User(
         name = this.name.first + " " + this.name.last,
         email = this.email,
-        image = this.picture.medium
+        image = this.picture.medium,
+        id = this.id.value
     )
 }

@@ -8,22 +8,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import com.javi.presentation.contact_detail.viewmodel.ContactDetailUiState
+import com.javi.presentation.contact_detail.viewmodel.ContactDetailViewModel
 import com.javi.presentation.contact_list.viewmodel.ContactListViewModel
+import com.javi.presentation.navigation.USER_ID_PARAM
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ContactDetailScreen(
     navController: NavController,
-    viewModel: ContactListViewModel = koinViewModel()
+    viewModel: ContactDetailViewModel = koinViewModel()
 ) {
-    ContactDetailLayout()
+    ContactDetailLayout(state = viewModel.state)
 }
 
 @Composable
-private fun ContactDetailLayout() {
+private fun ContactDetailLayout(state: ContactDetailUiState) {
     Box(modifier = Modifier.fillMaxSize()) {
         Text(
-            text = "Contact Detail Screen",
+            text = state.userId ?: "",
             modifier = Modifier.align(alignment = Alignment.Center)
         )
     }
@@ -32,5 +35,5 @@ private fun ContactDetailLayout() {
 @Preview
 @Composable
 private fun ContactDetailScreenPreview() {
-    ContactDetailLayout()
+    ContactDetailLayout(ContactDetailUiState())
 }

@@ -62,8 +62,8 @@ fun ContactListScreen(
     ) { paddingValues ->
         ContactListLayout(
             state = viewModel.state,
-            onDetailClick = {
-                navController.navigate(Screen.ContactDetailScreen.route)
+            onUserClick = {
+                navController.navigate("${Screen.ContactDetailScreen.route}/$it")
             },
             onLastItemReached = {
                 viewModel.onEvent(ContactListUiEvent.OnLoadMoreUsers)
@@ -78,7 +78,7 @@ private fun ContactListLayout(
     state: ContactListUiState,
     modifier: Modifier = Modifier,
     onLastItemReached: () -> Unit,
-    onDetailClick: () -> Unit
+    onUserClick: (String) -> Unit
 ) {
     if (state.isLoading) {
         CustomLoaderItem()
@@ -88,7 +88,7 @@ private fun ContactListLayout(
         }
     } else {
         if (state.hasUsers) {
-            ContactListData(state.userList, modifier, onLastItemReached, onDetailClick)
+            ContactListData(state.userList, modifier, onLastItemReached, onUserClick)
         } else {
             EmptyDataItem(message = "No users data")
         }
@@ -100,7 +100,7 @@ private fun ContactListData(
     userList: List<User>,
     modifier: Modifier = Modifier,
     onLastItemReached: () -> Unit,
-    onDetailClick: () -> Unit
+    onUserClick: (String) -> Unit
 ) {
     Box(
         modifier = modifier
@@ -110,10 +110,10 @@ private fun ContactListData(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
         ) {
-            items(userList) {
-                ContactItem(user = it,
+            items(userList) { user ->
+                ContactItem(user = user,
                     onUserClick = {
-                        onDetailClick()
+                        onUserClick(user.id)
                     })
                 Divider(
                     color = Color(0xFF8E8E93),
@@ -127,7 +127,7 @@ private fun ContactListData(
             // that request to load more items
             item {
                 LaunchedEffect(true) {
-                    onLastItemReached()
+                    //onLastItemReached()
                 }
             }
             //TODO: Implemented in screen loader when loading more items
@@ -141,7 +141,7 @@ private fun ContactListData(
 private fun ContactListScreenPreview() {
     ContactListLayout(
         state = ContactListUiState(),
-        onDetailClick = {
+        onUserClick = {
 
         },
         onLastItemReached = {

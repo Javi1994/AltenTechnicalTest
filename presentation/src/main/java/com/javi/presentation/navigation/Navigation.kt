@@ -20,7 +20,14 @@ fun Navigation() {
         composable(route = Screen.ContactListScreen.route) {
             ContactListScreen(navController = navController)
         }
-        composable(route = Screen.ContactDetailScreen.route) {
+        composable(
+            route = "${Screen.ContactDetailScreen.route}/{$USER_ID_PARAM}",
+            arguments = listOf(
+                navArgument(USER_ID_PARAM) {
+                    type = NavType.StringType
+                }
+            )
+        ) {
             ContactDetailScreen(navController = navController)
         }
     }
