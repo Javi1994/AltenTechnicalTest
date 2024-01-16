@@ -27,6 +27,11 @@ import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.javi.domain.model.User
 import com.javi.presentation.R
 import com.javi.presentation.components.ContactInfoItem
 import com.javi.presentation.components.StatusBarColorComponent
@@ -56,6 +62,7 @@ fun ContactDetailScreen(
     navController: NavController,
     viewModel: ContactDetailViewModel = koinViewModel()
 ) {
+    //Change status bar icon to dark
     StatusBarColorComponent(false)
 
     Box {
@@ -69,7 +76,9 @@ fun ContactDetailScreen(
                     .height(200.dp)
             )
 
-            ContactDetailLayout(viewModel.state)
+            viewModel.state.user?.let {
+                ContactDetailLayout(it)
+            }
         }
 
         AsyncImage(
@@ -107,8 +116,9 @@ fun ContactDetailScreen(
 }
 
 @Composable
-private fun ContactDetailLayout(state: ContactDetailUiState, modifier: Modifier = Modifier) {
+private fun ContactDetailLayout(user: User, modifier: Modifier = Modifier) {
     Box {
+        var isInEditMode by rememberSaveable { mutableStateOf(false) }
         Row(modifier = Modifier.align(Alignment.TopEnd)) {
             IconButton(
                 onClick = {}
@@ -120,7 +130,9 @@ private fun ContactDetailLayout(state: ContactDetailUiState, modifier: Modifier 
             }
             Spacer(modifier = Modifier.width(8.dp))
             IconButton(
-                onClick = {}
+                onClick = {
+                    isInEditMode = !isInEditMode
+                }
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_edit),
@@ -132,33 +144,48 @@ private fun ContactDetailLayout(state: ContactDetailUiState, modifier: Modifier 
             Spacer(modifier = Modifier.height(16.dp))
             ContactInfoItem(
                 hintText = stringResource(id = R.string.contact_detail_name_lastname),
-                valueText = state.userName,
-                icon = R.drawable.ic_user
-            )
+                valueText = user.name,
+                icon = R.drawable.ic_user,
+                isInEditMode = isInEditMode
+            ) {
+
+            }
             Spacer(modifier = Modifier.height(16.dp))
             ContactInfoItem(
                 hintText = stringResource(id = R.string.contact_detail_email),
-                valueText = state.email,
-                icon = R.drawable.ic_mail
-            )
+                valueText = user.email,
+                icon = R.drawable.ic_mail,
+                isInEditMode = isInEditMode
+            ) {
+
+            }
             Spacer(modifier = Modifier.height(16.dp))
             ContactInfoItem(
                 hintText = stringResource(id = R.string.contact_detail_gender),
-                valueText = state.gender,
-                icon = R.drawable.ic_gender
-            )
+                valueText = user.gender,
+                icon = R.drawable.ic_gender,
+                isInEditMode = isInEditMode
+            ) {
+
+            }
             Spacer(modifier = Modifier.height(16.dp))
             ContactInfoItem(
                 hintText = stringResource(id = R.string.contact_detail_register_date),
-                valueText = state.registerDate,
-                icon = R.drawable.ic_calendar
-            )
+                valueText = user.registerDate,
+                icon = R.drawable.ic_calendar,
+                isInEditMode = isInEditMode
+            ) {
+
+            }
             Spacer(modifier = Modifier.height(16.dp))
             ContactInfoItem(
                 hintText = stringResource(id = R.string.contact_detail_phone),
-                valueText = state.phone,
-                icon = R.drawable.ic_phone
-            )
+                valueText = user.phone,
+                icon = R.drawable.ic_phone,
+                isInEditMode = isInEditMode
+            ) {
+
+            }
         }
     }
 }
@@ -166,5 +193,5 @@ private fun ContactDetailLayout(state: ContactDetailUiState, modifier: Modifier 
 @Preview
 @Composable
 private fun ContactDetailScreenPreview() {
-    ContactDetailLayout(ContactDetailUiState())
+    ContactDetailLayout(User.sampleUser())
 }

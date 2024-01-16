@@ -9,6 +9,11 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,8 +25,10 @@ fun ContactInfoItem(
     hintText: String,
     valueText: String,
     icon: Int = R.drawable.ic_user,
-    isInEditMode: Boolean = false
+    isInEditMode: Boolean = false,
+    onValueChange: (String) -> Unit
 ) {
+    var text by remember { mutableStateOf(valueText) }
     Row(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -34,7 +41,7 @@ fun ContactInfoItem(
         )
         Spacer(modifier = Modifier.size(16.dp))
         OutlinedTextField(
-            value = valueText,
+            value = text,
             readOnly = !isInEditMode,
             label = {
                 Text(text = hintText)
@@ -44,7 +51,8 @@ fun ContactInfoItem(
             },
             singleLine = true,
             onValueChange = {
-
+                text = it
+                onValueChange(it)
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -59,5 +67,7 @@ private fun ContactInfoItemPreview() {
     ContactInfoItem(
         "Nombre y apellidos",
         "Laura Navarro Martinez",
-    )
+    ) {
+
+    }
 }

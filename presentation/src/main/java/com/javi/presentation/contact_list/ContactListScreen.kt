@@ -71,6 +71,7 @@ fun ContactListScreen(
     navController: NavController,
     viewModel: ContactListViewModel = koinViewModel()
 ) {
+    //Change status bar icon to light
     StatusBarColorComponent(true)
     ObserveAsEvents(viewModel.navigationEventsChannelFlow) { event ->
         when (event) {
