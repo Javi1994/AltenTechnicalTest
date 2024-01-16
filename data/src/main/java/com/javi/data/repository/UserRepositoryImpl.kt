@@ -11,4 +11,8 @@ class UserRepositoryImpl(
     override suspend fun getUsers(count: Int): Flow<Resource<List<UserDto>>> {
         return userDataSource.getUsers(count)
     }
+
+    override suspend fun getUserById(userId: String): Flow<Resource<UserDto>> {
+        return userDataSource.getUserById(userId)
+    }
 }

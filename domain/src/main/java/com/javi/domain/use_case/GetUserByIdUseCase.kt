@@ -9,18 +9,16 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
-class GetUsersUseCase constructor(
+class GetUserByIdUseCase constructor(
     private val userRepository: UserRepository,
     private val defaultDispatcher: CoroutineDispatcher
 ) {
-    suspend operator fun invoke(count: Int): Flow<Resource<List<User>>> =
+    suspend operator fun invoke(userId: String): Flow<Resource<User>> =
         withContext(defaultDispatcher) {
-            return@withContext userRepository.getUsers(count).map {
+            return@withContext userRepository.getUserById(userId).map {
                 when (it) {
                     is Resource.Success -> {
-                        Resource.Success(data = it.data?.map { userDto ->
-                            userDto.toUser()
-                        })
+                        Resource.Success(data = it.data?.toUser())
                     }
 
                     is Resource.Loading -> {

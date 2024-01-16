@@ -84,7 +84,7 @@ private fun ContactListLayout(
         CustomLoaderItem()
     } else if (state.hasError) {
         state.error?.let {
-            ErrorDataItem(message = it.localizedMessage)
+            ErrorDataItem(message = it.localizedMessage ?: "")
         }
     } else {
         if (state.hasUsers) {

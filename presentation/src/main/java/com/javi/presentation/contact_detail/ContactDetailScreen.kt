@@ -8,9 +8,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import com.javi.presentation.contact_list.viewmodel.ContactListViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun ContactDetailScreen(navController: NavController) {
+fun ContactDetailScreen(
+    navController: NavController,
+    viewModel: ContactListViewModel = koinViewModel()
+) {
     ContactDetailLayout()
 }
 
