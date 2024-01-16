@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -21,6 +22,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -30,6 +32,8 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -37,6 +41,8 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.intl.Locale
+import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Velocity
@@ -48,6 +54,7 @@ import com.javi.presentation.components.ContactItem
 import com.javi.presentation.components.CustomLoaderItem
 import com.javi.presentation.components.EmptyDataItem
 import com.javi.presentation.components.ErrorDataItem
+import com.javi.presentation.components.SearchItem
 import com.javi.presentation.components.StatusBarColorComponent
 import com.javi.presentation.contact_list.viewmodel.ContactListUiEvent
 import com.javi.presentation.contact_list.viewmodel.ContactListUiState
@@ -65,7 +72,13 @@ fun ContactListScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text(text = stringResource(id = R.string.contact_list_title).toUpperCase()) })
+            TopAppBar(title = {
+                Text(
+                    text = stringResource(id = R.string.contact_list_title).toUpperCase(
+                        Locale.current
+                    )
+                )
+            })
         },
         modifier = Modifier.padding(0.dp, 30.dp, 0.dp, 0.dp)
     ) { paddingValues ->
@@ -76,6 +89,9 @@ fun ContactListScreen(
             },
             onLastItemReached = {
                 viewModel.onEvent(ContactListUiEvent.OnLoadMoreUsers)
+            },
+            onSearchUser = {
+                viewModel.onEvent(ContactListUiEvent.OnSearchUser(it))
             },
             modifier = Modifier
                 .padding(paddingValues)
@@ -88,7 +104,8 @@ private fun ContactListLayout(
     state: ContactListUiState,
     modifier: Modifier = Modifier,
     onLastItemReached: () -> Unit,
-    onUserClick: (String) -> Unit
+    onUserClick: (String) -> Unit,
+    onSearchUser: (String) -> Unit,
 ) {
     if (state.isLoading) {
         CustomLoaderItem()
@@ -101,7 +118,7 @@ private fun ContactListLayout(
         }
     } else {
         if (state.hasUsers) {
-            ContactListData(state.userList, modifier, onLastItemReached, onUserClick)
+            ContactListData(state, modifier, onLastItemReached, onUserClick, onSearchUser)
         } else {
             EmptyDataItem(message = stringResource(id = R.string.contact_list_empty_users))
         }
@@ -110,19 +127,28 @@ private fun ContactListLayout(
 
 @Composable
 private fun ContactListData(
-    userList: List<User>,
+    state: ContactListUiState,
     modifier: Modifier = Modifier,
     onLastItemReached: () -> Unit,
-    onUserClick: (String) -> Unit
+    onUserClick: (String) -> Unit,
+    onSearchUser: (String) -> Unit,
 ) {
+
+    val userList = if (state.isSearching) state.filteredUserList else state.userList
     Box(
         modifier = modifier
             .fillMaxSize()
     ) {
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
+            contentPadding = PaddingValues(horizontal = 16.dp),
         ) {
+            item {
+                SearchItem {
+                    onSearchUser(it)
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+            }
             items(userList) { user ->
                 ContactItem(user = user,
                     onUserClick = {
@@ -140,7 +166,9 @@ private fun ContactListData(
             // that request to load more items
             item {
                 LaunchedEffect(true) {
-                    //onLastItemReached()
+                    if (!state.isSearching) {
+                        //onLastItemReached()
+                    }
                 }
             }
             //TODO: Implemented in screen loader when loading more items
@@ -152,12 +180,5 @@ private fun ContactListData(
 @Preview
 @Composable
 private fun ContactListScreenPreview() {
-    ContactListLayout(
-        state = ContactListUiState(),
-        onUserClick = {
 
-        },
-        onLastItemReached = {
-
-        })
 }
