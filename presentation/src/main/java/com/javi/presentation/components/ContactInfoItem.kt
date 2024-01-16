@@ -19,9 +19,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.javi.presentation.R
 import com.javi.presentation.ui.theme.LightGrey
 
@@ -52,6 +54,10 @@ fun ContactInfoItem(
                 unfocusedTextColor = Color.Black,
                 focusedLabelColor = LightGrey,
                 unfocusedLabelColor = LightGrey,
+            ),
+            textStyle = TextStyle.Default.copy(
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold
             ),
             readOnly = !isInEditMode,
             label = {
