@@ -28,7 +28,9 @@ fun ContactInfoItem(
         Image(
             painter = painterResource(id = icon),
             contentDescription = "Contact Info Icon",
-            modifier = Modifier.align(CenterVertically)
+            modifier = Modifier
+                .align(CenterVertically)
+                .size(32.dp)
         )
         Spacer(modifier = Modifier.size(16.dp))
         OutlinedTextField(

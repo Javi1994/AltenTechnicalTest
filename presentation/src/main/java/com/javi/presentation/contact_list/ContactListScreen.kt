@@ -67,7 +67,7 @@ fun ContactListScreen(
         topBar = {
             TopAppBar(title = { Text(text = stringResource(id = R.string.contact_list_title).toUpperCase()) })
         },
-        modifier = Modifier.padding(0.dp, 20.dp, 0.dp, 0.dp)
+        modifier = Modifier.padding(0.dp, 30.dp, 0.dp, 0.dp)
     ) { paddingValues ->
         ContactListLayout(
             state = viewModel.state,

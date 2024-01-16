@@ -3,13 +3,16 @@ package com.javi.presentation.contact_detail
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -24,6 +27,7 @@ import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -34,6 +38,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnitType.Companion.Sp
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavController
@@ -54,60 +59,77 @@ fun ContactDetailScreen(
     StatusBarColorComponent(false)
 
     Box {
-        Image(
-            painter = painterResource(id = R.drawable.contact_detail_background),
+        Column {
+            Image(
+                painter = painterResource(id = R.drawable.contact_detail_background),
+                contentDescription = "Contact Detail Background",
+                contentScale = ContentScale.FillBounds,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+            )
+
+            ContactDetailLayout(viewModel.state)
+        }
+
+        AsyncImage(
+            model = viewModel.state.image,
             contentDescription = "User Detail Image",
             modifier = Modifier
+                .padding(16.dp, 16.dp, 16.dp, 16.dp)
                 .size(80.dp)
                 .clip(CircleShape)
+                .border(4.dp, Color.White, CircleShape)
         )
-        Image(
-            painter = painterResource(id = R.drawable.contact_detail_background),
-            contentDescription = "Contact Detail Background",
-            contentScale = ContentScale.FillBounds,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(200.dp)
-        )
-        Scaffold(
-            contentColor = Color.Transparent,
-            containerColor = Color.Transparent,
-            topBar = {
-                TopAppBar(
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = Color.Transparent
-                    ),
-                    title = {
-                        Text(
-                            text = viewModel.state.userName,
-                            color = Color.White
-                        )
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = { navController.navigateUp() }) {
-                            Icon(
-                                imageVector = Icons.Filled.ArrowBack,
-                                contentDescription = "Back",
-                                tint = Color.White
-                            )
-                        }
-                    },
-                    modifier = Modifier.padding(0.dp, 20.dp, 0.dp, 0.dp)
+
+        TopAppBar(
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = Color.Transparent
+            ),
+            title = {
+                Text(
+                    text = viewModel.state.userName,
+                    color = Color.White
                 )
-            }
-        ) { paddingValues ->
-            ContactDetailLayout(
-                state = viewModel.state,
-                modifier = Modifier.padding(paddingValues)
-            )
-        }
+            },
+            navigationIcon = {
+                IconButton(onClick = { navController.navigateUp() }) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack,
+                        contentDescription = "Back",
+                        tint = Color.White
+                    )
+                }
+            },
+            modifier = Modifier.padding(0.dp, 20.dp, 0.dp, 0.dp)
+        )
     }
 }
 
 @Composable
 private fun ContactDetailLayout(state: ContactDetailUiState, modifier: Modifier = Modifier) {
-    Column {
-        Column(modifier = modifier.padding(16.dp, 200.dp, 16.dp, 16.dp)) {
+    Box {
+        Row(modifier = Modifier.align(Alignment.TopEnd)) {
+            IconButton(
+                onClick = {}
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_take_picture),
+                    contentDescription = "Take Picture"
+                )
+            }
+            Spacer(modifier = Modifier.width(8.dp))
+            IconButton(
+                onClick = {}
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_edit),
+                    contentDescription = "Edit Profile"
+                )
+            }
+        }
+        Column(modifier = modifier.padding(16.dp, 32.dp)) {
+            Spacer(modifier = Modifier.height(16.dp))
             ContactInfoItem(
                 hintText = stringResource(id = R.string.contact_detail_name_lastname),
                 valueText = state.userName,
