@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.Button
@@ -46,6 +48,7 @@ import com.javi.presentation.components.ContactItem
 import com.javi.presentation.components.CustomLoaderItem
 import com.javi.presentation.components.EmptyDataItem
 import com.javi.presentation.components.ErrorDataItem
+import com.javi.presentation.components.StatusBarColorComponent
 import com.javi.presentation.contact_list.viewmodel.ContactListUiEvent
 import com.javi.presentation.contact_list.viewmodel.ContactListUiState
 import com.javi.presentation.contact_list.viewmodel.ContactListViewModel
@@ -58,10 +61,13 @@ fun ContactListScreen(
     navController: NavController,
     viewModel: ContactListViewModel = koinViewModel()
 ) {
+    StatusBarColorComponent(true)
+
     Scaffold(
         topBar = {
             TopAppBar(title = { Text(text = stringResource(id = R.string.contact_list_title).toUpperCase()) })
-        }
+        },
+        modifier = Modifier.padding(0.dp, 20.dp, 0.dp, 0.dp)
     ) { paddingValues ->
         ContactListLayout(
             state = viewModel.state,
@@ -71,7 +77,8 @@ fun ContactListScreen(
             onLastItemReached = {
                 viewModel.onEvent(ContactListUiEvent.OnLoadMoreUsers)
             },
-            modifier = Modifier.padding(paddingValues)
+            modifier = Modifier
+                .padding(paddingValues)
         )
     }
 }
