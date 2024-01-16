@@ -13,7 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.javi.presentation.contact_list.ContactListScreen
+import com.javi.presentation.features.contact_list.ContactListScreen
 import com.javi.presentation.navigation.Navigation
 import com.javi.presentation.ui.theme.AltenTechnicalTestTheme
 import org.koin.compose.KoinContext

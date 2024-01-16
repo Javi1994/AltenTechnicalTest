@@ -1,4 +1,4 @@
-package com.javi.presentation.contact_list.viewmodel
+package com.javi.presentation.features.contact_list.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

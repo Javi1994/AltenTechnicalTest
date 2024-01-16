@@ -1,4 +1,4 @@
-package com.javi.presentation.contact_detail
+package com.javi.presentation.features.contact_detail
 
 import android.app.Activity
 import android.os.Build
@@ -42,9 +42,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.intl.Locale
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnitType.Companion.Sp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
@@ -52,8 +56,8 @@ import com.javi.domain.model.User
 import com.javi.presentation.R
 import com.javi.presentation.components.ContactInfoItem
 import com.javi.presentation.components.StatusBarColorComponent
-import com.javi.presentation.contact_detail.viewmodel.ContactDetailUiState
-import com.javi.presentation.contact_detail.viewmodel.ContactDetailViewModel
+import com.javi.presentation.features.contact_detail.viewmodel.ContactDetailUiState
+import com.javi.presentation.features.contact_detail.viewmodel.ContactDetailViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -99,7 +103,9 @@ fun ContactDetailScreen(
             ),
             title = {
                 Text(
-                    text = viewModel.state.userName,
+                    text = viewModel.state.userName.toUpperCase(Locale.current),
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
             },

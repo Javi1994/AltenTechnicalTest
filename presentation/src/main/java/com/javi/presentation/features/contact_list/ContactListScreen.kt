@@ -1,4 +1,4 @@
-package com.javi.presentation.contact_list
+package com.javi.presentation.features.contact_list
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -42,12 +42,14 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.javi.domain.model.User
 import com.javi.presentation.ObserveAsEvents
@@ -58,10 +60,10 @@ import com.javi.presentation.components.EmptyDataItem
 import com.javi.presentation.components.ErrorDataItem
 import com.javi.presentation.components.SearchItem
 import com.javi.presentation.components.StatusBarColorComponent
-import com.javi.presentation.contact_list.viewmodel.ContactListNavigationEvent
-import com.javi.presentation.contact_list.viewmodel.ContactListUiEvent
-import com.javi.presentation.contact_list.viewmodel.ContactListUiState
-import com.javi.presentation.contact_list.viewmodel.ContactListViewModel
+import com.javi.presentation.features.contact_list.viewmodel.ContactListNavigationEvent
+import com.javi.presentation.features.contact_list.viewmodel.ContactListUiEvent
+import com.javi.presentation.features.contact_list.viewmodel.ContactListUiState
+import com.javi.presentation.features.contact_list.viewmodel.ContactListViewModel
 import com.javi.presentation.navigation.Screen
 import com.javi.presentation.ui.theme.DimGrey
 import org.koin.androidx.compose.koinViewModel
@@ -86,12 +88,12 @@ fun ContactListScreen(
         topBar = {
             TopAppBar(
                 title = {
-                Text(
-                    text = stringResource(id = R.string.contact_list_title).toUpperCase(
-                        Locale.current
+                    Text(
+                        text = stringResource(id = R.string.contact_list_title).toUpperCase(Locale.current),
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold
                     )
-                )
-            })
+                })
         },
         modifier = Modifier.padding(0.dp, 30.dp, 0.dp, 0.dp)
     ) { paddingValues ->

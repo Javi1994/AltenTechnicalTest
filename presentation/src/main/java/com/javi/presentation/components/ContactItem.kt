@@ -20,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.Key.Companion.F
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -50,7 +51,13 @@ fun ContactItem(user: User, onUserClick: () -> Unit) {
             Spacer(modifier = Modifier.size(16.dp))
 
             Column(modifier = Modifier.align(CenterVertically)) {
-                Text(text = user.name, fontSize = 16.sp, color = Color.Black, lineHeight = 21.sp)
+                Text(
+                    text = user.name,
+                    fontSize = 16.sp,
+                    color = Color.Black,
+                    lineHeight = 21.sp,
+                    fontWeight = FontWeight.Bold
+                )
                 Spacer(modifier = Modifier.size(4.dp))
                 Text(
                     text = user.email,
