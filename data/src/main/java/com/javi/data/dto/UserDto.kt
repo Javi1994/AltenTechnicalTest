@@ -1,5 +1,6 @@
 package com.javi.data.dto
 
+//TODO: Check every attribute because api sometimes returns null values
 data class UserDto(
     val cell: String,
     val dob: Dob,

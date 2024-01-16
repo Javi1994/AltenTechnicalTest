@@ -34,11 +34,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.javi.domain.model.User
+import com.javi.presentation.R
 import com.javi.presentation.components.ContactItem
 import com.javi.presentation.components.CustomLoaderItem
 import com.javi.presentation.components.EmptyDataItem
@@ -57,7 +60,7 @@ fun ContactListScreen(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Contacts") })
+            TopAppBar(title = { Text(text = stringResource(id = R.string.contact_list_title).toUpperCase()) })
         }
     ) { paddingValues ->
         ContactListLayout(

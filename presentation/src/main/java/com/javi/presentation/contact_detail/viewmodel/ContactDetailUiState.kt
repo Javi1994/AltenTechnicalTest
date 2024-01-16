@@ -11,7 +11,16 @@ data class ContactDetailUiState(
     val isLoading: Boolean = false,
     val error: Exception? = null
 ) {
-
+    val userName: String
+        get() = user?.name ?: ""
+    val email: String
+        get() = user?.email ?: ""
+    val gender: String
+        get() = user?.gender ?: ""
+    val registerDate: String
+        get() = user?.registerDate ?: ""
+    val phone: String
+        get() = user?.phone ?: ""
 }
 
 sealed class ContactDetailUiEvent {

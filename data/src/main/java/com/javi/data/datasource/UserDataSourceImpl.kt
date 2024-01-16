@@ -36,7 +36,7 @@ class UserDataSourceImpl(
                 emit(Resource.Error(e))
             } catch (e: HttpException) {
                 emit(Resource.Error(e))
-            } catch (e: Exception) {
+            } catch (e: NullPointerException) {
                 emit(Resource.Error(e))
             }
         }
