@@ -18,6 +18,7 @@ Se ha implementado una forma de editar los campos clickando en el botón de edit
 
 ### App Structure
 Para la estructura del proyecto de ha optado por hacer la aplicación con Clean Architecture donde cada capa se trata de un modulo y hemos añadido el modulo de Common para cosas comunes a todas las capas.
+
 ![app_structure](https://github.com/Javi1994/AltenTechnicalTest/blob/master/images/Captura5.JPG)
 
 ### Librerias/tecnologias utilizadas
