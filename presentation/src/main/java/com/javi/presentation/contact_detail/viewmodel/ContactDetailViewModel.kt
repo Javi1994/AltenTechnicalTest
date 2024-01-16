@@ -28,6 +28,28 @@ class ContactDetailViewModel constructor(
 
     init {
         val userId = savedStateHandle.get<String>(USER_ID_PARAM).orEmpty()
-        state = state.copy(userId = userId)
+        getUserFromId(userId)
+    }
+
+    private fun getUserFromId(userId: String) {
+        viewModelScope.launch {
+            getUserByIdUseCase(userId).collect { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        result.data?.let { user ->
+                            state = state.copy(user = user, isLoading = false)
+                        }
+                    }
+
+                    is Resource.Loading -> {
+                        state = state.copy(isLoading = result.isLoading)
+                    }
+
+                    is Resource.Error -> {
+                        state = state.copy(error = result.error, isLoading = false)
+                    }
+                }
+            }
+        }
     }
 }

@@ -26,7 +26,7 @@ fun ContactDetailScreen(
 private fun ContactDetailLayout(state: ContactDetailUiState) {
     Box(modifier = Modifier.fillMaxSize()) {
         Text(
-            text = state.userId ?: "",
+            text = state.user?.name ?: "",
             modifier = Modifier.align(alignment = Alignment.Center)
         )
     }
