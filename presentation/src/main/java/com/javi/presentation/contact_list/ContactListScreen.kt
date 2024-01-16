@@ -55,9 +55,6 @@ fun ContactListScreen(
     navController: NavController,
     viewModel: ContactListViewModel = koinViewModel()
 ) {
-
-    viewModel.onEvent(ContactListUiEvent.OnLoadFirstUsers)
-
     Scaffold(
         topBar = {
             TopAppBar(title = { Text("Contacts") })
@@ -86,7 +83,9 @@ private fun ContactListLayout(
     if (state.isLoading) {
         CustomLoaderItem()
     } else if (state.hasError) {
-        ErrorDataItem(message = "There was an unexpected error")
+        state.error?.let {
+            ErrorDataItem(message = it.localizedMessage)
+        }
     } else {
         if (state.hasUsers) {
             ContactListData(state.userList, modifier, onLastItemReached, onDetailClick)
@@ -124,16 +123,17 @@ private fun ContactListData(
                         .align(Alignment.BottomEnd)
                 )
             }
+            //When we reach the end of the lazycolumn que add a launch effect
+            // that request to load more items
             item {
                 LaunchedEffect(true) {
                     onLastItemReached()
                 }
             }
+            //TODO: Implemented in screen loader when loading more items
         }
     }
 }
-
-fun LazyListState.isScrolledToEnd() = layoutInfo.visibleItemsInfo.lastOrNull()?.index == layoutInfo.totalItemsCount - 1
 
 
 @Preview

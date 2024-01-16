@@ -20,14 +20,18 @@ class ContactListViewModel constructor(
 
     var state by mutableStateOf(ContactListUiState())
 
+    init {
+        onEvent(ContactListUiEvent.OnLoadFirstUsers)
+    }
+
     fun onEvent(event: ContactListUiEvent) {
         when (event) {
             ContactListUiEvent.OnLoadFirstUsers -> {
-                getUserList(20, true)
+                getUserList(15, true)
             }
 
             ContactListUiEvent.OnLoadMoreUsers -> {
-                getUserList(20)
+                getUserList(10)
             }
 
             ContactListUiEvent.OnUserClick -> {
@@ -61,7 +65,7 @@ class ContactListViewModel constructor(
                     }
 
                     is Resource.Error -> {
-                        state = state.copy(error = result.error)
+                        state = state.copy(error = result.error, isLoading = false)
                     }
                 }
             }
