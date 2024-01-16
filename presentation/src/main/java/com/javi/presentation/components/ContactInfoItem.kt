@@ -22,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.javi.presentation.R
+import com.javi.presentation.ui.theme.LightGrey
 
 @Composable
 fun ContactInfoItem(
@@ -48,8 +49,8 @@ fun ContactInfoItem(
             colors = OutlinedTextFieldDefaults.colors(
                 focusedTextColor = Color.Black,
                 unfocusedTextColor = Color.Black,
-                focusedLabelColor = Color(0xFF707070),
-                unfocusedLabelColor = Color(0xFF707070),
+                focusedLabelColor = LightGrey,
+                unfocusedLabelColor = LightGrey,
             ),
             readOnly = !isInEditMode,
             label = {

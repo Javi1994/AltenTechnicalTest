@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.javi.domain.model.User
 import com.javi.presentation.R
+import com.javi.presentation.ui.theme.DimGrey
 
 @Composable
 fun ContactItem(user: User, onUserClick: () -> Unit) {
@@ -54,7 +55,7 @@ fun ContactItem(user: User, onUserClick: () -> Unit) {
                 Text(
                     text = user.email,
                     fontSize = 14.sp,
-                    color = Color(0xFF8E8E93),
+                    color = DimGrey,
                     lineHeight = 16.sp
                 )
             }

@@ -63,6 +63,7 @@ import com.javi.presentation.contact_list.viewmodel.ContactListUiEvent
 import com.javi.presentation.contact_list.viewmodel.ContactListUiState
 import com.javi.presentation.contact_list.viewmodel.ContactListViewModel
 import com.javi.presentation.navigation.Screen
+import com.javi.presentation.ui.theme.DimGrey
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -165,7 +166,7 @@ private fun ContactListData(
                         onUserClick(user.id)
                     })
                 Divider(
-                    color = Color(0xFF8E8E93),
+                    color = DimGrey,
                     modifier = Modifier
                         .height(0.5.dp)
                         .padding(68.dp, 0.dp, 0.dp, 0.dp)
