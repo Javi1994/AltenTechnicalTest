@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,6 +21,7 @@ import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -26,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import com.javi.presentation.R
 import com.javi.presentation.components.ContactInfoItem
 import com.javi.presentation.contact_detail.viewmodel.ContactDetailUiState
@@ -39,6 +43,14 @@ fun ContactDetailScreen(
     viewModel: ContactDetailViewModel = koinViewModel()
 ) {
     Box {
+        Image(
+            painter = painterResource(id = R.drawable.contact_detail_background),
+            contentDescription = "User Detail Image",
+            modifier = Modifier
+                .size(80.dp)
+                .clip(CircleShape)
+                .padding(16.dp, 180.dp, 0.dp, 0.dp)
+        )
         Image(
             painter = painterResource(id = R.drawable.contact_detail_background),
             contentDescription = "Contact Detail Background",

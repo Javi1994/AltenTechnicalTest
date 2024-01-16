@@ -21,6 +21,8 @@ data class ContactDetailUiState(
         get() = user?.registerDate ?: ""
     val phone: String
         get() = user?.phone ?: ""
+    val image: String?
+        get() = user?.image
 }
 
 sealed class ContactDetailUiEvent {

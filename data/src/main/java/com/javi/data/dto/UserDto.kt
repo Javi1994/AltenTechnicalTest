@@ -6,7 +6,7 @@ data class UserDto(
     val dob: Dob,
     val email: String,
     val gender: String,
-    val id: Id,
+    val id: Id?,
     val location: Location,
     val login: Login,
     val name: Name,

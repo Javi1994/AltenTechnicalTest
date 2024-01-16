@@ -45,7 +45,7 @@ class UserDataSourceImpl(
     override suspend fun getUserById(userId: String): Flow<Resource<UserDto>> {
         return flow {
             val user = userList.find {
-                it.id.value == userId
+                it.login.uuid == userId
             }
 
             if (user != null) {
