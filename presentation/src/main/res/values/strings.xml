@@ -1,5 +1,8 @@
 <resources>
     <string name="contact_list_title">Contactos</string>
+    <string name="contact_list_search_hint">Buscar</string>
+    <string name="contact_list_empty_users">No hay usuarios</string>
+    <string name="contact_list_undefined_error">Error desconocido</string>
 
     <string name="contact_detail_name_lastname">Nombre y apellidos</string>
     <string name="contact_detail_email">Email</string>

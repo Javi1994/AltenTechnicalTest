@@ -94,13 +94,16 @@ private fun ContactListLayout(
         CustomLoaderItem()
     } else if (state.hasError) {
         state.error?.let {
-            ErrorDataItem(message = it.localizedMessage ?: "")
+            ErrorDataItem(
+                message = it.localizedMessage
+                    ?: stringResource(id = R.string.contact_list_undefined_error)
+            )
         }
     } else {
         if (state.hasUsers) {
             ContactListData(state.userList, modifier, onLastItemReached, onUserClick)
         } else {
-            EmptyDataItem(message = "No users data")
+            EmptyDataItem(message = stringResource(id = R.string.contact_list_empty_users))
         }
     }
 }
