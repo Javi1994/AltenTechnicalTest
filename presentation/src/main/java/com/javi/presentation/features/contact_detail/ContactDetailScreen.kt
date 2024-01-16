@@ -58,6 +58,8 @@ import com.javi.presentation.components.ContactInfoItem
 import com.javi.presentation.components.StatusBarColorComponent
 import com.javi.presentation.features.contact_detail.viewmodel.ContactDetailUiState
 import com.javi.presentation.features.contact_detail.viewmodel.ContactDetailViewModel
+import com.javi.presentation.ui.theme.openSansFamily
+import com.javi.presentation.ui.theme.oswaldFamily
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -105,6 +107,7 @@ fun ContactDetailScreen(
                 Text(
                     text = viewModel.state.userName.toUpperCase(Locale.current),
                     fontSize = 20.sp,
+                    fontFamily = oswaldFamily,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
                 )

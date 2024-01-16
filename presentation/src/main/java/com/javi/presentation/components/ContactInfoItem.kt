@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.javi.presentation.R
 import com.javi.presentation.ui.theme.LightGrey
+import com.javi.presentation.ui.theme.openSansFamily
 
 @Composable
 fun ContactInfoItem(
@@ -57,6 +58,7 @@ fun ContactInfoItem(
             ),
             textStyle = TextStyle.Default.copy(
                 fontSize = 16.sp,
+                fontFamily = openSansFamily,
                 fontWeight = FontWeight.Bold
             ),
             readOnly = !isInEditMode,

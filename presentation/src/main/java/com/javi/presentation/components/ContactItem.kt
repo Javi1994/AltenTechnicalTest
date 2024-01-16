@@ -28,6 +28,8 @@ import coil.compose.AsyncImage
 import com.javi.domain.model.User
 import com.javi.presentation.R
 import com.javi.presentation.ui.theme.DimGrey
+import com.javi.presentation.ui.theme.openSansFamily
+import com.javi.presentation.ui.theme.oswaldFamily
 
 @Composable
 fun ContactItem(user: User, onUserClick: () -> Unit) {
@@ -56,6 +58,7 @@ fun ContactItem(user: User, onUserClick: () -> Unit) {
                     fontSize = 16.sp,
                     color = Color.Black,
                     lineHeight = 21.sp,
+                    fontFamily = openSansFamily,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.size(4.dp))
@@ -63,6 +66,7 @@ fun ContactItem(user: User, onUserClick: () -> Unit) {
                     text = user.email,
                     fontSize = 14.sp,
                     color = DimGrey,
+                    fontFamily = openSansFamily,
                     lineHeight = 16.sp
                 )
             }

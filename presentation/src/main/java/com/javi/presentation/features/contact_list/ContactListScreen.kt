@@ -66,6 +66,7 @@ import com.javi.presentation.features.contact_list.viewmodel.ContactListUiState
 import com.javi.presentation.features.contact_list.viewmodel.ContactListViewModel
 import com.javi.presentation.navigation.Screen
 import com.javi.presentation.ui.theme.DimGrey
+import com.javi.presentation.ui.theme.oswaldFamily
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -91,6 +92,7 @@ fun ContactListScreen(
                     Text(
                         text = stringResource(id = R.string.contact_list_title).toUpperCase(Locale.current),
                         fontSize = 20.sp,
+                        fontFamily = oswaldFamily,
                         fontWeight = FontWeight.Bold
                     )
                 })
