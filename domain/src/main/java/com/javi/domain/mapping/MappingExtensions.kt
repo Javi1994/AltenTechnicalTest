@@ -8,6 +8,10 @@ fun UserDto.toUser(): User {
         name = this.name.first + " " + this.name.last,
         email = this.email,
         image = this.picture.medium,
-        id = this.id.value
+        id = this.id.value,
+        gender = this.gender,
+        phone = this.phone,
+        location = this.location.coordinates.toString(),
+        registerDate = this.registered.date
     )
 }

@@ -11,12 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.BottomEnd
 import androidx.compose.ui.Alignment.Companion.CenterEnd
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
@@ -76,10 +72,7 @@ fun ContactItem(user: User, onUserClick: () -> Unit) {
 @Composable
 private fun ContactItemPreview() {
     ContactItem(
-        User(
-            name = "Javi",
-            email = "Email"
-        )
+        User.sampleUser()
     ) {
 
     }
