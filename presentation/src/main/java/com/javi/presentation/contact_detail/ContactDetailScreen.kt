@@ -81,11 +81,13 @@ fun ContactDetailScreen(
             }
         }
 
+        //TODO: Implement padding with percentages of screen
+        // because maybe the distance of the padding changes in different devices
         AsyncImage(
             model = viewModel.state.image,
             contentDescription = "User Detail Image",
             modifier = Modifier
-                .padding(16.dp, 16.dp, 16.dp, 16.dp)
+                .padding(16.dp, 155.dp, 16.dp, 16.dp)
                 .size(80.dp)
                 .clip(CircleShape)
                 .border(4.dp, Color.White, CircleShape)

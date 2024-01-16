@@ -12,15 +12,19 @@ class UserDataSourceImpl(
     private val userApi: UserApi
 ) : UserDataSource {
 
-    private val userList: MutableList<UserDto> = mutableListOf()
+    private var cachedUserList: MutableList<UserDto> = mutableListOf()
 
     suspend fun getUser(): UserDto {
         val user = userApi.getUser().results.first()
-        userList.add(user)
+        cachedUserList.add(user)
         return user
     }
 
-    override suspend fun getUsers(count: Int): Flow<Resource<List<UserDto>>> {
+    override suspend fun getUsers(count: Int, firstTime: Boolean): Flow<Resource<List<UserDto>>> {
+        if (firstTime) {
+            cachedUserList = mutableListOf()
+        }
+
         return flow {
             emit(Resource.Loading(isLoading = true))
 
@@ -28,7 +32,12 @@ class UserDataSourceImpl(
                 val userList: MutableList<UserDto> = mutableListOf()
                 for (i in 0..count) {
                     val user = getUser()
-                    userList.add(user)
+                    val duplicatedUser = userList.find { userFromList ->
+                        userFromList.login.uuid == user.login.uuid
+                    }
+                    if (duplicatedUser == null) {
+                        userList.add(user)
+                    }
                 }
 
                 emit(Resource.Success(userList))
@@ -44,7 +53,7 @@ class UserDataSourceImpl(
 
     override suspend fun getUserById(userId: String): Flow<Resource<UserDto>> {
         return flow {
-            val user = userList.find {
+            val user = cachedUserList.find {
                 it.login.uuid == userId
             }
 

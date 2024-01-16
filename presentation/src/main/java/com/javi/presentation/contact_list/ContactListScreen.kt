@@ -83,7 +83,8 @@ fun ContactListScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(title = {
+            TopAppBar(
+                title = {
                 Text(
                     text = stringResource(id = R.string.contact_list_title).toUpperCase(
                         Locale.current

@@ -13,9 +13,9 @@ class GetUsersUseCase constructor(
     private val userRepository: UserRepository,
     private val defaultDispatcher: CoroutineDispatcher
 ) {
-    suspend operator fun invoke(count: Int): Flow<Resource<List<User>>> =
+    suspend operator fun invoke(count: Int, firstTime: Boolean): Flow<Resource<List<User>>> =
         withContext(defaultDispatcher) {
-            return@withContext userRepository.getUsers(count).map {
+            return@withContext userRepository.getUsers(count, firstTime).map {
                 when (it) {
                     is Resource.Success -> {
                         Resource.Success(data = it.data?.map { userDto ->

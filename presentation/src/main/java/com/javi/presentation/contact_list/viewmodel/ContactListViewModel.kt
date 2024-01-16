@@ -54,13 +54,13 @@ class ContactListViewModel constructor(
         }
     }
 
-    private fun getUserList(count: Int, resetUsers: Boolean = false) {
+    private fun getUserList(count: Int, firstTime: Boolean = false) {
         viewModelScope.launch {
-            getUsersUseCase(count).collect { result ->
+            getUsersUseCase(count, firstTime).collect { result ->
                 when (result) {
                     is Resource.Success -> {
                         result.data?.let { userList ->
-                            state = if (resetUsers) {
+                            state = if (firstTime) {
                                 state.copy(
                                     userList = userList,
                                     isLoading = false
@@ -75,7 +75,7 @@ class ContactListViewModel constructor(
                     }
 
                     is Resource.Loading -> {
-                        state = state.copy(isLoading = result.isLoading && resetUsers)
+                        state = state.copy(isLoading = result.isLoading && firstTime)
                     }
 
                     is Resource.Error -> {

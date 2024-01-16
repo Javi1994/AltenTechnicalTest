@@ -5,6 +5,7 @@
         <activity
             android:name="com.javi.presentation.MainActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AltenTechnicalTest">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
