@@ -1,7 +1,5 @@
 package com.javi.presentation.features.contact_detail
 
-import android.app.Activity
-import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -19,46 +17,36 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme.colorScheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.compositeOver
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnitType.Companion.Sp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.view.WindowCompat
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.javi.domain.model.User
 import com.javi.presentation.R
 import com.javi.presentation.components.ContactInfoItem
 import com.javi.presentation.components.StatusBarColorComponent
-import com.javi.presentation.features.contact_detail.viewmodel.ContactDetailUiState
 import com.javi.presentation.features.contact_detail.viewmodel.ContactDetailViewModel
-import com.javi.presentation.ui.theme.openSansFamily
+import com.javi.presentation.formatUserDate
+import com.javi.presentation.getGenderString
 import com.javi.presentation.ui.theme.oswaldFamily
 import org.koin.androidx.compose.koinViewModel
 
@@ -182,7 +170,7 @@ private fun ContactDetailLayout(user: User, modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.height(16.dp))
             ContactInfoItem(
                 hintText = stringResource(id = R.string.contact_detail_register_date),
-                valueText = user.registerDate,
+                valueText = formatUserDate(user.registerDate),
                 icon = R.drawable.ic_calendar,
                 isInEditMode = isInEditMode
             ) {
@@ -201,22 +189,7 @@ private fun ContactDetailLayout(user: User, modifier: Modifier = Modifier) {
     }
 }
 
-@Composable
-private fun getGenderString(gender: String): String {
-    return when (gender) {
-        User.MALE -> {
-            stringResource(id = R.string.contact_male)
-        }
 
-        User.FEMALE -> {
-            stringResource(id = R.string.contact_female)
-        }
-
-        else -> {
-            ""
-        }
-    }
-}
 
 @Preview
 @Composable
