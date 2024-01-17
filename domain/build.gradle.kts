@@ -37,6 +37,8 @@ dependencies {
     implementation(libs.coroutines)
     implementation(libs.bundles.koin)
 
+    implementation(libs.bundles.test)
+
     implementation(project(":data"))
     implementation(project(":common"))
 }
