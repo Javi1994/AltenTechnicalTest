@@ -28,6 +28,7 @@ Para la estructura del proyecto de ha optado por hacer la aplicación con Clean 
 - Retrofit para las peticiones
 - Coroutinas para la emision asíncrona de datos
 - Gradle catalogs para la gestión de dependencias
+- Truth y JUnit para los unit test
 
 ### Problemas encontrados durante el desarrollo
 En la pantalla de detalle de usuario me ha costado mucho centrar la imagen entre la imagen de fondo y el contenido de la propia pantalla y he dado con una implementación que funciona pero podria haber problemas en dispositivos pequeños y habria que hacerlo por porcentaje de pantalla en vez de dp o con dimensiones.
