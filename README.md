@@ -13,8 +13,8 @@ La pantalla dispone de un simple buscador que filtra los usuarios en local tanto
 Cuando desde la pantalla de listado de usuarios le damos a un usuario accederemos a la pantalla de detalle de usuario donde solo se trata de una pantalla que muestra la información del usuario.
 Se ha implementado una forma de editar los campos clickando en el botón de editar pero no está enlazado al propio usuario ni a ninguna api.
 
-![contact_detail_image1](https://github.com/Javi1994/AltenTechnicalTest/blob/master/images/Captura3.JPG)
-![contact_detail_image2](https://github.com/Javi1994/AltenTechnicalTest/blob/master/images/Captura4.JPG)
+![contact_detail_image1](https://github.com/Javi1994/AltenTechnicalTest/blob/master/images/contact_detail.JPG)
+![contact_detail_image2](https://github.com/Javi1994/AltenTechnicalTest/blob/master/images/contact_detail_edit.JPG)
 
 ### App Structure
 Para la estructura del proyecto de ha optado por hacer la aplicación con Clean Architecture donde cada capa se trata de un modulo y hemos añadido el modulo de Common para cosas comunes a todas las capas.
