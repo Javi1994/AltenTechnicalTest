@@ -1,5 +1,6 @@
 package com.javi.data.di
 
+import com.javi.data.BuildConfig
 import com.javi.data.datasource.network.UserApi
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
@@ -13,7 +14,7 @@ val networkModule = module {
 }
 
 fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-    return Retrofit.Builder().baseUrl("https://randomuser.me/").client(okHttpClient)
+    return Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create()).build()
 }
 
