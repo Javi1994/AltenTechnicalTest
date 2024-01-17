@@ -16,7 +16,14 @@ android {
     }
 
     buildTypes {
+
+        debug {
+            buildConfigField("String", "BASE_URL", "\"https://randomuser.me/\"")
+        }
+
         release {
+            buildConfigField("String", "BASE_URL", "\"https://randomuser.me/\"")
+
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -30,6 +37,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 
