@@ -48,7 +48,7 @@ dependencies {
     implementation(libs.bundles.compose)
     implementation(libs.material3)
 
-    implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation(libs.coil.compose)
 
     implementation(project(":domain"))
     implementation(project(":common"))

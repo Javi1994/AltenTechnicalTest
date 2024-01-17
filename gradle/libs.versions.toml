@@ -1,5 +1,6 @@
 [versions]
 agp = "8.1.4"
+coil-compose = "2.5.0"
 kotlin = "1.9.10"
 
 core-ktx = "1.12.0"
@@ -25,6 +26,7 @@ androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx
 androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso-core" }
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-junit" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil-compose" }
 junit = { module = "junit:junit", version.ref = "junit" }
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
