@@ -55,6 +55,4 @@ object FakeUserData {
         picture = Picture(large = "", medium = "", thumbnail = ""),
         nat = "IE"
     )
-
-    val validUsers = listOf(validUserDto, validUserDto, validUserDto, validUserDto, validUserDto)
 }
