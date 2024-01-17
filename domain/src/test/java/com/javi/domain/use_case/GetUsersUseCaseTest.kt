@@ -46,8 +46,8 @@ class GetUsersUseCaseTest {
             getUsersUseCase(userCount, true).collect {
                 assertThat(it).isInstanceOf(Resource.Success::class.java)
                 assertThat(it.data).isNotNull()
-                assertThat(it.data?.size).isEqualTo(5)
                 assertThat(it.data?.first()).isInstanceOf(User::class.java)
+                assertThat(it.data?.size).isEqualTo(5)
             }
         }
     }

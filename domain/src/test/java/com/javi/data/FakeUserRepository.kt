@@ -10,6 +10,7 @@ import java.io.IOException
 class FakeUserRepository : UserRepository {
 
     private var userList = mutableListOf<UserDto>()
+    private var userById: UserDto? = null
     private var userCount = 0
 
     private var shouldReturnError = false
@@ -30,7 +31,15 @@ class FakeUserRepository : UserRepository {
     }
 
     override suspend fun getUserById(userId: String): Flow<Resource<UserDto>> {
-        TODO("Not yet implemented")
+        return flow {
+            if (shouldReturnError) {
+                emit(Resource.Error(error))
+            } else if (shouldReturnLoading) {
+                emit(Resource.Loading())
+            } else {
+                emit(Resource.Success(userById))
+            }
+        }
     }
 
     fun setUsersData(user: UserDto, userCount: Int) {
@@ -42,6 +51,12 @@ class FakeUserRepository : UserRepository {
         for (i in 1..userCount) {
             userList.add(user)
         }
+    }
+
+    fun setUserIdData(user: UserDto) {
+        this.userById = user
+        this.shouldReturnError = false
+        this.shouldReturnLoading = false
     }
 
     fun shouldReturnError(error: Exception? = IOException("Undefined Error")) {
