@@ -173,7 +173,7 @@ private fun ContactDetailLayout(user: User, modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.height(16.dp))
             ContactInfoItem(
                 hintText = stringResource(id = R.string.contact_detail_gender),
-                valueText = user.gender,
+                valueText = getGenderString(user.gender),
                 icon = R.drawable.ic_gender,
                 isInEditMode = isInEditMode
             ) {
@@ -197,6 +197,23 @@ private fun ContactDetailLayout(user: User, modifier: Modifier = Modifier) {
             ) {
 
             }
+        }
+    }
+}
+
+@Composable
+private fun getGenderString(gender: String): String {
+    return when (gender) {
+        User.MALE -> {
+            stringResource(id = R.string.contact_male)
+        }
+
+        User.FEMALE -> {
+            stringResource(id = R.string.contact_female)
+        }
+
+        else -> {
+            ""
         }
     }
 }

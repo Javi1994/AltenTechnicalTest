@@ -11,6 +11,10 @@ data class User(
     val location: String
 ) {
     companion object {
+
+        const val MALE = "male"
+        const val FEMALE = "female"
+
         fun sampleUser(): User {
             return User(
                 "Name",
