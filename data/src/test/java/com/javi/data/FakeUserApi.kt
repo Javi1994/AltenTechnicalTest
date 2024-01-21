@@ -36,6 +36,16 @@ class FakeUserApi : UserApi {
         "124ad1a1-0738-4a74-83dd-efa318c2c570",
         "591kasd1-0738-4a74-83dd-efa318c2c570",
         "541d19sa-0738-4a74-83dd-efa318c2c570",
+        "7b4dsac522d-0738-4a74-83dd-efa318c2c570",
+        "81ada23df-0738-4a74-83dd-efa318c2c570",
+        "1213sva4asc-0738-4a74-83dd-efa318c2c570",
+        "92a4dsc232-0738-4a74-83dd-efa318c2c570",
+        "219zds81a-0738-4a74-83dd-efa318c2c570",
+        "sd31ca1da-0738-4a74-83dd-efa318c2c570",
+        "121aadca13-0738-4a74-83dd-efa318c2c570",
+        "12a4ad1a1-0738-4a74-83dd-efa318c2c570",
+        "591kaasd1-0738-4a74-83dd-efa318c2c570",
+        "541dda19sa-0738-4a74-83dd-efa318c2c570",
     )
 
     private fun generateRandomUser(): UserResponse {
