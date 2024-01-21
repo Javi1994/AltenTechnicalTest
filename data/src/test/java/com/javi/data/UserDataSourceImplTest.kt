@@ -60,6 +60,34 @@ class UserDataSourceImplTest {
     }
 
     @Test
+    fun `success get user by id, returns valid user`() {
+        runBlocking {
+            val user = userDataSourceImpl.getUser()
+            val userId = user.login.uuid
+
+            userDataSourceImpl.getUserById(userId).collect {
+                assertThat(it).isInstanceOf(Resource.Success::class.java)
+                assertThat(it.data).isNotNull()
+                assertThat(it.data).isInstanceOf(UserDto::class.java)
+                assertThat(it.data?.login?.uuid).isEqualTo(userId)
+            }
+        }
+    }
+
+    @Test
+    fun `error get user by id, returns nullpointer error`() {
+        runBlocking {
+            val userId = "no id"
+
+            userDataSourceImpl.getUserById(userId).collect {
+                assertThat(it).isInstanceOf(Resource.Error::class.java)
+                assertThat(it.error).isNotNull()
+                assertThat(it.error).isInstanceOf(NullPointerException::class.java)
+            }
+        }
+    }
+
+    @Test
     fun `error get users ioexception, returns ioexception error resource`() {
         val userCount = 5
         val firstTime = true
