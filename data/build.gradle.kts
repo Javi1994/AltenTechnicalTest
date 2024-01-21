@@ -50,5 +50,7 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.retrofit)
 
+    implementation(libs.bundles.test)
+
     implementation(project(":common"))
 }

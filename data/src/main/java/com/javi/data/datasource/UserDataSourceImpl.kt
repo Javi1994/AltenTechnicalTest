@@ -30,14 +30,14 @@ class UserDataSourceImpl(
 
             try {
                 val userList: MutableList<UserDto> = mutableListOf()
-                for (i in 0..count) {
+                for (i in 1..count) {
                     val user = getUser()
                     val duplicatedUser = userList.find { userFromList ->
                         userFromList.login.uuid == user.login.uuid
                     }
-                    if (duplicatedUser == null) {
+                    //if (duplicatedUser == null) {
                         userList.add(user)
-                    }
+                    //}
                 }
 
                 emit(Resource.Success(userList))
