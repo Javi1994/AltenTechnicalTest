@@ -1,5 +1,6 @@
 package com.javi.data
 
+import android.net.http.HttpException
 import com.javi.data.datasource.UserDataSourceImpl
 import com.javi.data.datasource.network.UserApi
 import org.junit.Before
@@ -11,10 +12,11 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.runBlocking
+import java.io.IOException
 
 class UserDataSourceImplTest {
     private lateinit var userDataSourceImpl: UserDataSourceImpl
-    private lateinit var fakeUserApi: UserApi
+    private lateinit var fakeUserApi: FakeUserApi
 
     @Before
     fun setUp() {
@@ -33,7 +35,7 @@ class UserDataSourceImplTest {
 
     @Test
     fun `success get users, returns valid user list`() {
-        val userCount = 5
+        val userCount = 10
         val firstTime = true
 
         runBlocking {
@@ -42,6 +44,60 @@ class UserDataSourceImplTest {
             assertThat(lastEmit.data).isNotNull()
             assertThat(lastEmit.data?.first()).isInstanceOf(UserDto::class.java)
             assertThat(lastEmit.data?.size).isEqualTo(userCount)
+        }
+    }
+
+    @Test
+    fun `success get users first loading, returns loading resource`() {
+        val userCount = 5
+        val firstTime = true
+
+        runBlocking {
+            val firstEmit = userDataSourceImpl.getUsers(userCount, firstTime).first()
+            assertThat(firstEmit).isInstanceOf(Resource.Loading::class.java)
+            assertThat(firstEmit.isLoading).isTrue()
+        }
+    }
+
+    @Test
+    fun `error get users ioexception, returns ioexception error resource`() {
+        val userCount = 5
+        val firstTime = true
+        fakeUserApi.shouldThrowError(IOException())
+
+        runBlocking {
+            val lastEmit = userDataSourceImpl.getUsers(userCount, firstTime).last()
+            assertThat(lastEmit).isInstanceOf(Resource.Error::class.java)
+            assertThat(lastEmit.error).isNotNull()
+            assertThat(lastEmit.error).isInstanceOf(IOException::class.java)
+        }
+    }
+
+    @Test
+    fun `error get users httpexception, returns httpexception error resource`() {
+        val userCount = 5
+        val firstTime = true
+        fakeUserApi.shouldThrowError(HttpException("", NullPointerException()))
+
+        runBlocking {
+            val lastEmit = userDataSourceImpl.getUsers(userCount, firstTime).last()
+            assertThat(lastEmit).isInstanceOf(Resource.Error::class.java)
+            assertThat(lastEmit.error).isNotNull()
+            assertThat(lastEmit.error).isInstanceOf(HttpException::class.java)
+        }
+    }
+
+    @Test
+    fun `error get users nullpointer, returns nullpointer error resource`() {
+        val userCount = 5
+        val firstTime = true
+        fakeUserApi.shouldThrowError(NullPointerException())
+
+        runBlocking {
+            val lastEmit = userDataSourceImpl.getUsers(userCount, firstTime).last()
+            assertThat(lastEmit).isInstanceOf(Resource.Error::class.java)
+            assertThat(lastEmit.error).isNotNull()
+            assertThat(lastEmit.error).isInstanceOf(NullPointerException::class.java)
         }
     }
 }

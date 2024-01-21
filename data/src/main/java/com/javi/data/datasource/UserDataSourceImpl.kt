@@ -35,9 +35,11 @@ class UserDataSourceImpl(
                     val duplicatedUser = userList.find { userFromList ->
                         userFromList.login.uuid == user.login.uuid
                     }
+                    //TODO: Add another user when we dont add one
                     //if (duplicatedUser == null) {
-                        userList.add(user)
+                    //    userList.add(user)
                     //}
+                    userList.add(user)
                 }
 
                 emit(Resource.Success(userList))
